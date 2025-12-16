@@ -1,13 +1,19 @@
-import { ImageResponse } from "next/og";
-import { baseURL, person } from "@/resources";
+import { NextResponse } from "next/server";
 
-export const runtime = "nodejs";
+// This route is not compatible with static export
+// Use static OG images in public/images/og/ instead
+export const dynamic = "force-static";
 
-export async function GET(request: Request) {
-  let url = new URL(request.url);
-  let title = url.searchParams.get("title") || "Portfolio";
+export async function GET() {
+  return NextResponse.json(
+    { error: "Dynamic OG generation not available in static export" },
+    { status: 501 }
+  );
+}
 
-  async function loadGoogleFont(font: string) {
+/*
+// Original implementation disabled for static export
+async function loadGoogleFont(font: string) {
     const url = `https://fonts.googleapis.com/css2?family=${font}`;
     const css = await (await fetch(url)).text();
     const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
@@ -116,3 +122,4 @@ export async function GET(request: Request) {
     },
   );
 }
+*/

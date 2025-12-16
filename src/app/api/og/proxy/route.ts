@@ -1,6 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+// This route is not compatible with static export
+export const dynamic = "force-static";
+
+export async function GET() {
+  return NextResponse.json(
+    { error: "Image proxy not available in static export" },
+    { status: 501 }
+  );
+}
+
+/*
+export async function GET_DISABLED(request: NextRequest) {
   try {
     // Get the URL parameter
     const url = new URL(request.url);
@@ -43,3 +54,4 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+*/

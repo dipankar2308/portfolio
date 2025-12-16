@@ -1,13 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import * as cookie from "cookie";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  const cookieHeader = request.headers.get("cookie") || "";
-  const cookies = cookie.parse(cookieHeader);
+// This route is not compatible with static export
+// For GitHub Pages, authentication is disabled
+export const dynamic = "force-static";
 
-  if (cookies.authToken === "authenticated") {
-    return NextResponse.json({ authenticated: true }, { status: 200 });
-  } else {
-    return NextResponse.json({ authenticated: false }, { status: 401 });
-  }
+export async function GET() {
+  return NextResponse.json({ authenticated: true }, { status: 200 });
 }

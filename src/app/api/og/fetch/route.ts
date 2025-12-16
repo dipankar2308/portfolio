@@ -1,7 +1,18 @@
 import { NextResponse } from 'next/server';
 
-export const runtime = 'edge';
+// This route is not compatible with static export
+// Dynamic metadata fetching is disabled for GitHub Pages
+export const dynamic = "force-static";
 
+export async function GET() {
+  return NextResponse.json(
+    { error: "Dynamic OG fetching not available in static export" },
+    { status: 501 }
+  );
+}
+
+/*
+// Original implementation disabled for static export
 function decodeHTMLEntities(text: string): string {
   return text.replace(/&(#?[a-zA-Z0-9]+);/g, (match, entity) => {
     const entities: { [key: string]: string } = {
@@ -65,7 +76,7 @@ async function extractMetadata(html: string) {
   };
 }
 
-export async function GET(request: Request) {
+export async function GET_ORIGINAL(request: Request) {
   const { searchParams } = new URL(request.url);
   const url = searchParams.get('url');
 
@@ -96,3 +107,4 @@ export async function GET(request: Request) {
     }, { status: 500 });
   }
 }
+*/
